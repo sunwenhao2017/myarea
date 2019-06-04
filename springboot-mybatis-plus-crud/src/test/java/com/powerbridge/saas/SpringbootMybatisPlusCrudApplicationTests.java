@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.powerbridge.saas.dao.PbUserMapper;
@@ -53,6 +54,27 @@ public class SpringbootMybatisPlusCrudApplicationTests {
         Integer insert = pbUserMapper.updateById(pbUser);
         System.out.println("return insert value = " + insert);
     }
+    
+    /**
+     * 通过条件修改数据
+     * @param 
+     * @return
+     * wenhaosun@powerbridge.com
+     * 2019年6月4日 上午11:20:21
+     */
+    @Test
+    public void updateByWrapper() {
+    	
+    	//要修改的对象
+    	PbUser pbUser = new PbUser();
+    	pbUser.setUserPwd("2222");
+
+    	//查询条件
+    	UpdateWrapper<PbUser> wrapper = new UpdateWrapper<PbUser>();
+    	wrapper.eq("user_name", "test1");
+    	pbUserMapper.update(pbUser, wrapper);
+    }
+    
     
     /**
      * 通过条件进行实体list查询
