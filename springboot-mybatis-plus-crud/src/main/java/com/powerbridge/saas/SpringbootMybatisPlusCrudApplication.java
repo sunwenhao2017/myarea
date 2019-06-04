@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-@MapperScan(value = {"com.lqf.crud.dao.*","com.powerbridge.saas.dao"})
+@MapperScan(value = {"com.powerbridge.saas.dao"})
 public class SpringbootMybatisPlusCrudApplication {
 
     public static void main(String[] args) {
