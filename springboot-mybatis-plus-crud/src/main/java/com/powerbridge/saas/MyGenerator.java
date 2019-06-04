@@ -1,4 +1,4 @@
-package com.lqf.crud;
+package com.powerbridge.saas;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -18,7 +18,7 @@ import java.util.ResourceBundle;
  *     代码生成器
  * </p>
  */
-public class MpGenerator {
+public class MyGenerator {
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -54,11 +54,19 @@ public class MpGenerator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent(rb.getString("parent"));
-        pc.setController("controller." + rb.getString("className"));
-        pc.setService("service." + rb.getString("className"));
-        pc.setServiceImpl("service." + rb.getString("className") + ".impl");
-        pc.setEntity("bean." + rb.getString("className"));
-        pc.setMapper("dao." + rb.getString("className"));
+        
+        /**  带指定包名  **/
+//        pc.setController("controller." + rb.getString("className"));
+//        pc.setService("service." + rb.getString("className"));
+//        pc.setServiceImpl("service." + rb.getString("className") + ".impl");
+//        pc.setEntity("bean." + rb.getString("className"));
+//        pc.setMapper("dao." + rb.getString("className"));
+        
+        pc.setController("controller");
+        pc.setService("service");
+        pc.setServiceImpl("service" + ".impl");
+        pc.setEntity("entity");
+        pc.setMapper("dao");
         mpg.setPackageInfo(pc);
 
         // 自定义配置

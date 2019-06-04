@@ -1,4 +1,4 @@
-package com.lqf.crud.controller.crm;
+package com.powerbridge.saas.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Controller;
  *  前端控制器
  * </p>
  *
- * @author lqf
- * @since 2018-09-30
+ * @author SUNWENHAO
+ * @since 2019-06-04
  */
 @Controller
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/pbUser")
+public class PbUserController {
 
 }
