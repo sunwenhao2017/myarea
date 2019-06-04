@@ -1,0 +1,1364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qtone.hdkt.dao.classes.ClassMapper" >
+  <resultMap id="BaseResultMap" type="com.qtone.hdkt.model.classes.Class" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="organization_id" property="organizationId" jdbcType="INTEGER" />
+    <result column="curriculum_id" property="curriculumId" jdbcType="INTEGER" />
+    <result column="curriculum_system_id" property="curriculumSystemId" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="cover_url" property="coverUrl" jdbcType="VARCHAR" />
+    <result column="place" property="place" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="teacher_id" property="teacherId" jdbcType="INTEGER" />
+    <result column="grade_id" property="gradeId" jdbcType="INTEGER" />
+    <result column="subject_id" property="subjectId" jdbcType="INTEGER" />
+    <result column="term_id" property="termId" jdbcType="INTEGER" />
+    <result column="school_id" property="schoolId" jdbcType="INTEGER" />
+    <result column="campus_id" property="campusId" jdbcType="INTEGER" />
+    <result column="toplimit" property="toplimit" jdbcType="INTEGER" />
+    <result column="full_status" property="fullStatus" jdbcType="INTEGER" />
+    <result column="enrollment" property="enrollment" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="pay_way" property="payWay" jdbcType="VARCHAR" />
+    <result column="is_publish" property="isPublish" jdbcType="INTEGER" />
+    <result column="lesson_total" property="lessonTotal" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.qtone.hdkt.model.classes.Class" extends="BaseResultMap" >
+    <result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, organization_id, curriculum_id, curriculum_system_id, code, name, cover_url, 
+    place, time, teacher_id, grade_id, subject_id, term_id, school_id, campus_id, toplimit, 
+    full_status, enrollment, price, pay_way, is_publish, lesson_total, create_time, update_time, 
+    delete_time, is_deleted
+  </sql>
+  <sql id="Blob_Column_List" >
+    introduction
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.qtone.hdkt.model.classes.ClassExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qtone.hdkt.model.classes.ClassExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0 and limitEnd != null and limitEnd>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from class
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from class
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qtone.hdkt.model.classes.ClassExample" >
+    delete from class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qtone.hdkt.model.classes.Class" >
+    insert into class (id, organization_id, curriculum_id, 
+      curriculum_system_id, code, name, 
+      cover_url, place, time, 
+      teacher_id, grade_id, subject_id, 
+      term_id, school_id, campus_id, 
+      toplimit, full_status, enrollment, 
+      price, pay_way, is_publish, 
+      lesson_total, create_time, update_time, 
+      delete_time, is_deleted, introduction
+      )
+    values (#{id,jdbcType=INTEGER}, #{organizationId,jdbcType=INTEGER}, #{curriculumId,jdbcType=INTEGER}, 
+      #{curriculumSystemId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{coverUrl,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, 
+      #{teacherId,jdbcType=INTEGER}, #{gradeId,jdbcType=INTEGER}, #{subjectId,jdbcType=INTEGER}, 
+      #{termId,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER}, #{campusId,jdbcType=INTEGER}, 
+      #{toplimit,jdbcType=INTEGER}, #{fullStatus,jdbcType=INTEGER}, #{enrollment,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{payWay,jdbcType=VARCHAR}, #{isPublish,jdbcType=INTEGER}, 
+      #{lessonTotal,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{deleteTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=INTEGER}, #{introduction,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qtone.hdkt.model.classes.Class" >
+    insert into class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="organizationId != null" >
+        organization_id,
+      </if>
+      <if test="curriculumId != null" >
+        curriculum_id,
+      </if>
+      <if test="curriculumSystemId != null" >
+        curriculum_system_id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="coverUrl != null" >
+        cover_url,
+      </if>
+      <if test="place != null" >
+        place,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="gradeId != null" >
+        grade_id,
+      </if>
+      <if test="subjectId != null" >
+        subject_id,
+      </if>
+      <if test="termId != null" >
+        term_id,
+      </if>
+      <if test="schoolId != null" >
+        school_id,
+      </if>
+      <if test="campusId != null" >
+        campus_id,
+      </if>
+      <if test="toplimit != null" >
+        toplimit,
+      </if>
+      <if test="fullStatus != null" >
+        full_status,
+      </if>
+      <if test="enrollment != null" >
+        enrollment,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="payWay != null" >
+        pay_way,
+      </if>
+      <if test="isPublish != null" >
+        is_publish,
+      </if>
+      <if test="lessonTotal != null" >
+        lesson_total,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="deleteTime != null" >
+        delete_time,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="organizationId != null" >
+        #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="curriculumId != null" >
+        #{curriculumId,jdbcType=INTEGER},
+      </if>
+      <if test="curriculumSystemId != null" >
+        #{curriculumSystemId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="coverUrl != null" >
+        #{coverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="gradeId != null" >
+        #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null" >
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="termId != null" >
+        #{termId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="campusId != null" >
+        #{campusId,jdbcType=INTEGER},
+      </if>
+      <if test="toplimit != null" >
+        #{toplimit,jdbcType=INTEGER},
+      </if>
+      <if test="fullStatus != null" >
+        #{fullStatus,jdbcType=INTEGER},
+      </if>
+      <if test="enrollment != null" >
+        #{enrollment,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="payWay != null" >
+        #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublish != null" >
+        #{isPublish,jdbcType=INTEGER},
+      </if>
+      <if test="lessonTotal != null" >
+        #{lessonTotal,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteTime != null" >
+        #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qtone.hdkt.model.classes.ClassExample" resultType="java.lang.Integer" >
+    select count(*) from class
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update class
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.organizationId != null" >
+        organization_id = #{record.organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.curriculumId != null" >
+        curriculum_id = #{record.curriculumId,jdbcType=INTEGER},
+      </if>
+      <if test="record.curriculumSystemId != null" >
+        curriculum_system_id = #{record.curriculumSystemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.code != null" >
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coverUrl != null" >
+        cover_url = #{record.coverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.place != null" >
+        place = #{record.place,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherId != null" >
+        teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="record.gradeId != null" >
+        grade_id = #{record.gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.subjectId != null" >
+        subject_id = #{record.subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.termId != null" >
+        term_id = #{record.termId,jdbcType=INTEGER},
+      </if>
+      <if test="record.schoolId != null" >
+        school_id = #{record.schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="record.campusId != null" >
+        campus_id = #{record.campusId,jdbcType=INTEGER},
+      </if>
+      <if test="record.toplimit != null" >
+        toplimit = #{record.toplimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.fullStatus != null" >
+        full_status = #{record.fullStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.enrollment != null" >
+        enrollment = #{record.enrollment,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payWay != null" >
+        pay_way = #{record.payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPublish != null" >
+        is_publish = #{record.isPublish,jdbcType=INTEGER},
+      </if>
+      <if test="record.lessonTotal != null" >
+        lesson_total = #{record.lessonTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleteTime != null" >
+        delete_time = #{record.deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDeleted != null" >
+        is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update class
+    set id = #{record.id,jdbcType=INTEGER},
+      organization_id = #{record.organizationId,jdbcType=INTEGER},
+      curriculum_id = #{record.curriculumId,jdbcType=INTEGER},
+      curriculum_system_id = #{record.curriculumSystemId,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      cover_url = #{record.coverUrl,jdbcType=VARCHAR},
+      place = #{record.place,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR},
+      teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      grade_id = #{record.gradeId,jdbcType=INTEGER},
+      subject_id = #{record.subjectId,jdbcType=INTEGER},
+      term_id = #{record.termId,jdbcType=INTEGER},
+      school_id = #{record.schoolId,jdbcType=INTEGER},
+      campus_id = #{record.campusId,jdbcType=INTEGER},
+      toplimit = #{record.toplimit,jdbcType=INTEGER},
+      full_status = #{record.fullStatus,jdbcType=INTEGER},
+      enrollment = #{record.enrollment,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      pay_way = #{record.payWay,jdbcType=VARCHAR},
+      is_publish = #{record.isPublish,jdbcType=INTEGER},
+      lesson_total = #{record.lessonTotal,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      delete_time = #{record.deleteTime,jdbcType=TIMESTAMP},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      introduction = #{record.introduction,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update class
+    set id = #{record.id,jdbcType=INTEGER},
+      organization_id = #{record.organizationId,jdbcType=INTEGER},
+      curriculum_id = #{record.curriculumId,jdbcType=INTEGER},
+      curriculum_system_id = #{record.curriculumSystemId,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      cover_url = #{record.coverUrl,jdbcType=VARCHAR},
+      place = #{record.place,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR},
+      teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      grade_id = #{record.gradeId,jdbcType=INTEGER},
+      subject_id = #{record.subjectId,jdbcType=INTEGER},
+      term_id = #{record.termId,jdbcType=INTEGER},
+      school_id = #{record.schoolId,jdbcType=INTEGER},
+      campus_id = #{record.campusId,jdbcType=INTEGER},
+      toplimit = #{record.toplimit,jdbcType=INTEGER},
+      full_status = #{record.fullStatus,jdbcType=INTEGER},
+      enrollment = #{record.enrollment,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      pay_way = #{record.payWay,jdbcType=VARCHAR},
+      is_publish = #{record.isPublish,jdbcType=INTEGER},
+      lesson_total = #{record.lessonTotal,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      delete_time = #{record.deleteTime,jdbcType=TIMESTAMP},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qtone.hdkt.model.classes.Class" >
+    update class
+    <set >
+      <if test="organizationId != null" >
+        organization_id = #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="curriculumId != null" >
+        curriculum_id = #{curriculumId,jdbcType=INTEGER},
+      </if>
+      <if test="curriculumSystemId != null" >
+        curriculum_system_id = #{curriculumSystemId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="coverUrl != null" >
+        cover_url = #{coverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="place != null" >
+        place = #{place,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        teacher_id = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="gradeId != null" >
+        grade_id = #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null" >
+        subject_id = #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="termId != null" >
+        term_id = #{termId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        school_id = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="campusId != null" >
+        campus_id = #{campusId,jdbcType=INTEGER},
+      </if>
+      <if test="toplimit != null" >
+        toplimit = #{toplimit,jdbcType=INTEGER},
+      </if>
+      <if test="fullStatus != null" >
+        full_status = #{fullStatus,jdbcType=INTEGER},
+      </if>
+      <if test="enrollment != null" >
+        enrollment = #{enrollment,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="payWay != null" >
+        pay_way = #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="isPublish != null" >
+        is_publish = #{isPublish,jdbcType=INTEGER},
+      </if>
+      <if test="lessonTotal != null" >
+        lesson_total = #{lessonTotal,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteTime != null" >
+        delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qtone.hdkt.model.classes.Class" >
+    update class
+    set organization_id = #{organizationId,jdbcType=INTEGER},
+      curriculum_id = #{curriculumId,jdbcType=INTEGER},
+      curriculum_system_id = #{curriculumSystemId,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      cover_url = #{coverUrl,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      teacher_id = #{teacherId,jdbcType=INTEGER},
+      grade_id = #{gradeId,jdbcType=INTEGER},
+      subject_id = #{subjectId,jdbcType=INTEGER},
+      term_id = #{termId,jdbcType=INTEGER},
+      school_id = #{schoolId,jdbcType=INTEGER},
+      campus_id = #{campusId,jdbcType=INTEGER},
+      toplimit = #{toplimit,jdbcType=INTEGER},
+      full_status = #{fullStatus,jdbcType=INTEGER},
+      enrollment = #{enrollment,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      pay_way = #{payWay,jdbcType=VARCHAR},
+      is_publish = #{isPublish,jdbcType=INTEGER},
+      lesson_total = #{lessonTotal,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+      introduction = #{introduction,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qtone.hdkt.model.classes.Class" >
+    update class
+    set organization_id = #{organizationId,jdbcType=INTEGER},
+      curriculum_id = #{curriculumId,jdbcType=INTEGER},
+      curriculum_system_id = #{curriculumSystemId,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      cover_url = #{coverUrl,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      teacher_id = #{teacherId,jdbcType=INTEGER},
+      grade_id = #{gradeId,jdbcType=INTEGER},
+      subject_id = #{subjectId,jdbcType=INTEGER},
+      term_id = #{termId,jdbcType=INTEGER},
+      school_id = #{schoolId,jdbcType=INTEGER},
+      campus_id = #{campusId,jdbcType=INTEGER},
+      toplimit = #{toplimit,jdbcType=INTEGER},
+      full_status = #{fullStatus,jdbcType=INTEGER},
+      enrollment = #{enrollment,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      pay_way = #{payWay,jdbcType=VARCHAR},
+      is_publish = #{isPublish,jdbcType=INTEGER},
+      lesson_total = #{lessonTotal,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!--获取课程列表-->
+  <select id="getClassListByType" parameterType="java.util.Map" resultType="java.util.Map">
+  	select a.id as id, 
+	  	a.name as className, 
+	  	a.cover_url as classUrl, 
+	  	a.enrollment as enrollCount, 
+		a.full_status as fullStatus,
+		s.id AS schoolId,
+		s.name AS schoolName,
+		ca.id AS campusId,
+		ca.name AS campusName,
+		a.time AS time,
+		a.place AS place,
+	  	a.price as price,
+	  	a.code as code,
+	  	b.name as lessonName,
+		count(b.id) as lessonCount,
+		(select count(1) from class_student where student_id = #{studentId,jdbcType=INTEGER} and class_id = a.id and is_deleted = 0 ) as isEnroll 
+		from class a 
+		LEFT JOIN (select * from class_lesson c where c.is_deleted = 0 ) b on a.id = b.class_id 
+		LEFT JOIN curriculum c on a.curriculum_id = c.id 
+		LEFT JOIN school s on a.school_id = s.id  
+		LEFT JOIN campus ca on a.campus_id = ca.id 
+		where 
+		c.attribute = #{classType,jdbcType=INTEGER} and 
+		a.organization_id = #{orgId,jdbcType=INTEGER} and a.is_publish = 1 and 
+		<if test="schoolId != null" >
+        a.school_id = #{schoolId,jdbcType=INTEGER} and 
+      	</if>
+      	<if test="subjectId != null" >
+        a.subject_id = #{subjectId,jdbcType=INTEGER} and
+      	</if>
+      	<if test="campusId != null" >
+        a.campus_id = #{campusId,jdbcType=INTEGER} and
+      	</if>
+      	<if test="gradeId != null" >
+        a.grade_id = #{gradeId,jdbcType=INTEGER} and
+      	</if>
+      	<if test="termId != null" >
+        a.term_id = #{termId,jdbcType=INTEGER} and
+      	</if>
+      	<if test="status != null" >
+        a.full_status = #{status,jdbcType=INTEGER} and
+      	</if>
+      	<if test="time != null" >
+        a.time like CONCAT('%',#{time,jdbcType=VARCHAR},'%') and
+      	</if>
+		a.is_deleted = 0 GROUP BY a.id ORDER BY a.id DESC
+  </select>
+  
+  <!-- 根据课程id获取课程详情 （未报名课程列表） -->
+  <select id="getclassDetail" resultType="java.util.Map" parameterType="java.lang.Integer">
+  	select a.id as id, a.name as className, 
+		c.attribute as classType,
+		a.cover_url as classUrl,
+		count(b.id) as lessonCount,
+		a.price as price,
+		t.name as teacherName,
+		t.photo_url as teacherUrl,
+		t.introduction as teacherIntroduction,
+		a.introduction as classIntroduction,
+		a.time as classTime,
+		a.code as code,
+		b.name as lessonName,
+		a.place as classAddress,
+		(select count(1) from class_student where student_id = #{studentId,jdbcType=INTEGER}  and class_id = a.id and is_deleted = 0 ) as isEnroll 
+		from class a 
+		left join class_lesson b on a.id = b.class_id  
+		left join teacher t on a.teacher_id = t.id 
+		left join curriculum c on a.curriculum_id = c.id 
+    where a.id = #{classId,jdbcType=INTEGER} 
+    and a.is_deleted = 0 and t.is_deleted = 0 and b.is_deleted = 0 
+  </select>
+  
+  <!--获取我的课程列表-->
+  <select id="getMyClassListV2" parameterType="java.util.Map" resultType="java.util.Map">
+  	select  
+		b.id AS id, 
+		b.name AS className, 
+		b.cover_url AS classUrl,
+		count(c.id) AS lessonCount,
+		b.enrollment as enrollCount, 
+		b.full_status as fullStatus,
+		s.id AS schoolId,
+		s.name AS schoolName,
+		ca.id AS campusId,
+		ca.name AS campusName,
+		b.time AS time,
+		b.place AS place,
+		b.code AS code,
+		c.name AS lessonName,
+		a.uid AS uId,
+		(select count(1) from class_lesson cl where cl.class_id = b.id and cl.status = 2 and cl.is_deleted = 0) AS studyCount
+		from class_student a 
+		left join class b on a.class_id = b.id 
+		left join (select * from class_lesson d where d.is_deleted = 0) c on c.class_id = b.id 
+		left join curriculum d on b.curriculum_id = d.id 
+		left join school s on b.school_id = s.id  
+		left join campus ca on b.campus_id = ca.id 
+		where d.attribute = 1 and a.student_id = 4 and a.is_deleted = 0 and 
+		b.organization_id = 1 and b.is_publish = 1 and 
+		<if test="schoolId != null" >
+        b.school_id = #{schoolId,jdbcType=INTEGER} and 
+      	</if>
+      	<if test="subjectId != null" >
+        b.subject_id = #{subjectId,jdbcType=INTEGER} and
+      	</if>
+      	<if test="campusId != null" >
+        b.campus_id = #{campusId,jdbcType=INTEGER} and
+      	</if>
+      	<if test="gradeId != null" >
+        b.grade_id = #{gradeId,jdbcType=INTEGER} and
+      	</if>
+      	<if test="termId != null" >
+        b.term_id = #{termId,jdbcType=INTEGER} and
+      	</if>
+      	<if test="status != null" >
+        b.full_status = #{status,jdbcType=INTEGER} and
+      	</if>
+      	<if test="time != null" >
+        b.time like CONCAT('%',#{time,jdbcType=VARCHAR},'%') and
+      	</if>
+		b.is_deleted = 0 
+		GROUP BY b.id 
+		ORDER BY b.id 
+		DESC
+  </select>
+  <select id="getMyClassList" parameterType="java.lang.Integer" resultType="java.util.Map">
+  	select a.uid as uId, b.id as id, b.name as className,b.code as code,c.name as lessonName,
+    case when concat(c.date,' ',c.start_time) &gt; now() then 0 when concat(c.date,' ',c.end_time) &lt; now() then 2 else 1 
+    end as status,
+ 	b.cover_url as classUrl,count(c.id) as lessonCount,c.schedule_num as scheduleNum,
+	(select count(1) from class_lesson cl where cl.class_id = b.id and cl.status = 2 and cl.is_deleted = 0) as studyCount
+	from class_student a 
+	left join class b on a.class_id = b.id 
+	left join (select * from class_lesson d where d.is_deleted = 0) c on c.class_id = b.id 
+	left join curriculum d on b.curriculum_id = d.id 
+	where d.attribute = #{classType,jdbcType=INTEGER} and a.student_id = #{studentId,jdbcType=INTEGER} and a.is_deleted = 0 and 
+	b.organization_id = #{orgId,jdbcType=INTEGER} and b.is_publish = 1 
+	and b.is_deleted = 0 GROUP BY b.id ORDER BY b.id DESC
+  </select>
+  
+  <!-- 授课-我的班级(分页) 教师所属 -->
+  <select id="teacherClassList" parameterType="java.lang.Integer" resultType="java.util.Map">
+	select c.id,c.`code`,c.`name` className,s.`name` schoolName,ter.`name` termName,cp.`name` campusName,sub.`name` gradeSubjectName,
+	cu.`name` courseName,c.place classPlace,c.time classTime,(select count(1) from class_student cs where cs.class_id = c.id and cs.is_deleted = 0) as studentNum,
+	CASE WHEN (select count(1) from class_lesson cl where cl.class_id = c.id and cl.status = 2 and cl.is_deleted = 0) = 0 then 1 end as currentLesson,c.lesson_total lessonNum,
+	cu.attribute liveclassStatus,t.`name` teacherName 
+	from class c  
+	LEFT JOIN school s on(c.school_id = s.id) 
+	LEFT JOIN dict_organization_term ter on(c.term_id = ter.id) 
+	LEFT JOIN campus cp on(c.campus_id = cp.id) 
+	LEFT JOIN dict_organization_subject sub ON(c.subject_id = sub.id) 
+	LEFT JOIN curriculum cu ON(c.curriculum_id = cu.id) 
+	LEFT JOIN teacher t on(c.teacher_id = t.id)
+	where c.is_deleted = 0 and s.is_deleted = 0 and ter.is_deleted = 0 and cp.is_deleted = 0 and sub.is_deleted = 0 and cu.is_deleted = 0 and t.is_deleted = 0 
+	and c.is_publish = 1 and c.teacher_id = #{teacherId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 获取该班级详情信息 -->
+  <select id="getClassDetail" parameterType="java.lang.Integer" resultType="java.util.Map">
+	select c.id,c.cover_url coverUrl,c.`code`,c.`name` className,s.`name` schoolName,ter.`name` termName,cp.`name` campusName,sub.`name` gradeSubjectName,
+	cu.`name` courseName,c.place classPlace,c.time classTime,(select count(1) from class_student cs where cs.class_id = c.id and cs.is_deleted = 0) as studentNum,
+	(select count(1) from class_lesson cl where cl.class_id = c.id and cl.status = 2 and cl.is_deleted = 0) as currentLesson,c.lesson_total lessonNum,
+	cu.attribute liveclassStatus,t.`name` teacherName,cu.curriculum_system_id systemId
+	from class c  
+	LEFT JOIN school s on(c.school_id = s.id) 
+	LEFT JOIN dict_organization_term ter on(c.term_id = ter.id) 
+	LEFT JOIN campus cp on(c.campus_id = cp.id) 
+	LEFT JOIN dict_organization_subject sub ON(c.subject_id = sub.id) 
+	LEFT JOIN curriculum cu ON(c.curriculum_id = cu.id) 
+	LEFT JOIN teacher t on(c.teacher_id = t.id)
+	where c.id = #{classId,jdbcType=INTEGER} and c.is_deleted = 0 and s.is_deleted = 0 and ter.is_deleted = 0 and cp.is_deleted = 0 and sub.is_deleted = 0 and cu.is_deleted = 0 and t.is_deleted = 0 
+  </select>
+  
+  <!-- 根据班级id获取小节课信息 -->
+  <select id="getClassLessonByClassId" parameterType="java.lang.Integer" resultType="java.util.Map">
+  	select cl.id,cl.`name` lessonName,cl.date lessonDate,cl.start_time startTime, 
+	cl.end_time endTime,cl.status lessonStatus,cl.schedule_num scheduleNum,cl.sort
+	from class_lesson cl where cl.class_id = #{classId,jdbcType=INTEGER} ORDER BY sort
+  </select>
+  
+  <!-- 教务管理-班级管理-班级列表查询页（分页） -->
+  <select id="listClass" parameterType="java.util.Map" resultType="java.util.Map">
+  	SELECT
+		c.id AS classId,
+		c. NAME AS className,
+		s. NAME AS schoolName,
+		ca. NAME AS campusName,
+		cu. NAME AS curriculumName,
+		t. NAME AS teacherName,
+		dot. NAME AS termName,
+		c.is_publish AS isPublish,
+		c.price AS price
+	FROM
+		class c
+	LEFT JOIN (select * from school s1 where s1.is_deleted = 0)s ON c.school_id = s.id
+	INNER JOIN campus ca ON c.campus_id = ca.id
+	LEFT JOIN (SELECT * FROM curriculum cu1 where cu1.is_deleted = 0)cu ON c.curriculum_id = cu.id
+	INNER JOIN teacher t ON c.teacher_id = t.id
+	LEFT JOIN (SELECT * FROM dict_organization_term dot1 where dot1.is_deleted = 0) dot ON c.term_id = dot.id
+	WHERE
+		c.is_deleted = 0
+	AND ca.is_deleted = 0
+	AND t.is_deleted = 0
+	AND c.organization_id = #{organizationId,jdbcType=INTEGER}
+	<if test="className!=null and className!=''">
+	AND	(LOCATE(#{className,jdbcType=VARCHAR}, c.NAME) > 0 or LOCATE(#{className,jdbcType=VARCHAR}, c.code) > 0)
+	</if>
+	<if test="schoolId!=null">
+	AND c.school_id = #{schoolId,jdbcType=INTEGER}
+	</if>
+	<if test="subjectId!=null">
+	AND c.subject_id = #{subjectId,jdbcType=INTEGER}
+	</if>
+	<if test="attributeId!=null">
+	AND cu.attribute = #{attributeId,jdbcType=INTEGER}
+	</if>
+	<if test="campusId!=null">
+	AND c.campus_id = #{campusId,jdbcType=INTEGER}
+	</if>
+	<if test="termId!=null">
+	AND c.term_id = #{termId,jdbcType=INTEGER}
+	</if>
+	<if test="curriculumId!=null">
+	AND cu.id = #{curriculumId,jdbcType=INTEGER}
+	</if>
+	<if test="teacherId!=null">
+	AND t.id = #{teacherId,jdbcType=INTEGER}
+	</if>
+	<if test="classdateId!=null">
+	AND c.id in(SELECT cc.class_id FROM class_classdate cc WHERE cc.classdate_id = #{classdateId,jdbcType=INTEGER} AND cc.is_deleted = 0)
+	</if>
+  </select>
+  <!-- 查询class下的lesson -->
+  <select id="getLessonByclassId" resultType="java.lang.Integer">
+  	select id from class_lesson where class_id = #{cid,jdbcType=INTEGER} and is_deleted = 0
+  </select>
+  <!-- 根据lessonid查询随堂测 -->
+  <select id="getLessonClasstestIdByLessonId" resultType="java.lang.Integer">
+  	select id from lesson_classtest where lesson_id = #{lessonId,jdbcType=INTEGER} and is_deleted = 0
+  </select>
+  <!--  删除学生对随堂检测的题目中的答案 -->
+  <update id="deleteLessonClasstestProblemAnswerBylessonClasstestId">
+  	update lesson_classtest_problem_answer set is_deleted = 1, delete_time = now() where lesson_classtest_id = #{lessonClasstestId,jdbcType=INTEGER}
+  </update>
+  <!--  删除答题方式表 -->
+  <update id="deleteLessonAnswerWayByLessonId">
+  	update lesson_answer_way set is_deleted = 1, delete_time = now() where lesson_id = #{lessonId,jdbcType=INTEGER}
+  </update>
+  <!-- 删除课程中的随堂检测 -->
+  <update id="deleteLessonClasstestByLessonId">
+  	update lesson_classtest set is_deleted = 1, delete_time = now() where lesson_id = #{lessonId,jdbcType=INTEGER}
+  </update>
+  <!-- 删除课程中使用的作业 -->
+  <update id="deleteLessonHomeworkByLessonId">
+  	update lesson_homework set is_deleted = 1, delete_time = now() where lesson_id = #{lessonId,jdbcType=INTEGER}
+  </update>
+  <!-- 删除课程使用的课件 -->
+  <update id="deleteLessonCoursewareByLessonId">
+  	update lesson_courseware set is_deleted = 1, delete_time = now() where lesson_id = #{lessonId,jdbcType=INTEGER}
+  </update>
+  <!-- 获取课程中使用的作业ids -->
+  <select id="getLessonHomeworkIdByLessonId" resultType="java.lang.Integer">
+  	select id from lesson_homework where lesson_id = #{lessonId,jdbcType=INTEGER} and is_deleted = 0
+  </select>
+  <!-- 获取课程中学生的作业以及状态 -->
+  <select id="getLessonHomeworkStudentIdBylessonHomeworkId" resultType="java.lang.Integer">
+  	select id from lesson_homework_student where lesson_homework_id = #{lessonHomeworkId,jdbcType=INTEGER} and is_deleted = 0
+  </select>
+  
+   <!-- 根据课程id获取课程详情 （已报名课程列表） -->
+  <select id="getMyClassDetail" resultType="java.util.Map" parameterType="java.lang.Integer">
+  	select 
+		a.id as id, 
+		a.name as className, 
+		cu.attribute as classType,	
+		a.cover_url as classUrl,
+		count(b.id) as lessonCount,
+		c.name as teacherName,
+		c.photo_url as teacherUrl,
+		c.introduction as teacherIntroduction,
+		a.time as classTime,
+		a.place as classAddress,
+		a.code as code,
+		a.introduction as classIntroduction,
+		(select uid from class_student cs where cs.class_id = #{classId,jdbcType=INTEGER}
+		and cs.student_id = #{studentId,jdbcType=INTEGER} limit 1) as uId 
+		from class a 
+		left join class_lesson b on a.id = b.class_id 
+		left JOIN curriculum cu on cu.id = a.curriculum_id 
+		left join teacher c on a.teacher_id = c.id 
+		where a.id = #{classId,jdbcType=INTEGER} and a.is_deleted = 0 and b.is_deleted = 0 
+  </select>
+  
+   <!-- 查询即将开始的课节信息 -->
+  <select id="getFutureLesson" resultType="java.util.Map" parameterType="java.lang.Integer">
+  	select 
+	  (case when status=1 then 1 when status=0 then 2 when status = 2 then 3 else 3 end) as sort,
+	  a.id as futureLessonId, a.name as futureLessonName,a.schedule_num as futureScheduleNum,status as futureLessonStatus,
+	  concat(TRIM(LEADING '0' FROM concat(DATE_FORMAT(a.date,'%m'),'月')),TRIM(LEADING '0' FROM concat(DATE_FORMAT(a.date,'%d'),'号')),' ',TRIM(LEADING '0' FROM a.start_time)) as futureTime 
+	  from class_lesson a where a.class_id = #{classId,jdbcType=INTEGER} and a.is_deleted = 0 order by 1 asc,a.id desc limit 1
+  </select>
+  
+  <!-- 查询课程的每节课信息 -->
+  <select id="getLessonList" resultType="java.util.Map" parameterType="java.lang.Integer">
+  select cl.sort as sort, cl.id as lessonId, cl.name as lessonName, cl.status as lessonStatus ,
+		case when concat(cl.date,' ',cl.start_time) > now() then 0 
+		when 
+		(select count(1) from lesson_homework_student lhs 
+		left join lesson_homework lh on lh.id = lhs.lesson_homework_id 
+		where lh.lesson_id = cl.id and lhs.student_id = #{studentId,jdbcType=INTEGER} and lhs.is_deleted = 0 ) = 0 
+		and  
+		(select count(1) from lesson_story_book_student lsbs 
+		left join lesson_story_book lsb on lsb.id = lsbs.lesson_book_id 
+		where lsb.lesson_id = cl.id and lsbs.student_id = #{studentId,jdbcType=INTEGER} and lsbs.is_deleted = 0 ) = 0 
+		then 1 
+		when 
+	 (select IF(min(lhs.status) IS NULL, 0, min(lhs.status)) as status from lesson_homework_student lhs 
+		left join lesson_homework lh on lh.id = lhs.lesson_homework_id 
+		where lh.lesson_id = cl.id and lhs.student_id = #{studentId,jdbcType=INTEGER} and lhs.is_deleted = 0) = 0  
+		and 
+		(select IF(min(lsbs.status) IS NULL, 0, min(lsbs.status)) from lesson_story_book_student lsbs 
+		left join lesson_story_book lsb on lsb.id = lsbs.lesson_book_id 
+		where lsb.lesson_id = cl.id and lsbs.student_id = #{studentId,jdbcType=INTEGER} and lsbs.is_deleted = 0 ) = 0 
+		then 2 
+		when 
+		(select IF(min(lhs.status) IS NULL, 0, min(lhs.status)) as status from lesson_homework_student lhs 
+		left join lesson_homework lh on lh.id = lhs.lesson_homework_id 
+		where lh.lesson_id = cl.id and lhs.student_id = #{studentId,jdbcType=INTEGER} and lhs.is_deleted = 0) = 1
+		and 
+		(select IF(min(lsbs.status) IS NULL, 0, min(lsbs.status)) from lesson_story_book_student lsbs 
+		left join lesson_story_book lsb on lsb.id = lsbs.lesson_book_id 
+		where lsb.lesson_id = cl.id and lsbs.student_id = #{studentId,jdbcType=INTEGER} and lsbs.is_deleted = 0) = 1 
+		then 3 
+		else 4 
+		end as homeworkStatus,
+		cl.schedule_num as scheduleNum
+		from class_lesson cl  where cl.class_id = #{classId,jdbcType=INTEGER} and cl.is_deleted = 0
+  </select>
+  
+   <!-- 查询当前机构下是否有此课程信息 -->
+  <select id="getClassIdByOrgId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(1) from class where organization_id = #{orgId,jdbcType=INTEGER} and id = #{classId,jdbcType=INTEGER} and is_deleted = 0
+  </select>
+  
+  <!--查询此课程下是否有此课程-->
+  <select id="getCourseCode" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select is_used from class_code 
+  		where class_id =#{classId,jdbcType=INTEGER}  and code = #{courseCode,jdbcType=VARCHAR} and is_deleted = 0 limit 1
+  </select>
+  <!--查看学生是否报过此门课程-->
+  <select id="selectIsApply" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select count(1) from class_student where student_id = #{studentId,jdbcType=INTEGER} and class_id = #{classId,jdbcType=INTEGER} and is_deleted = 0 
+  </select>
+  
+   <!--查询当前课程最大uid-->
+  <select id="selectMaxUid" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select MAX(uid) from class_student WHERE class_id = #{classId,jdbcType=INTEGER}
+  </select>
+  
+  <!--给学生添加课程-->
+  <insert id="saveStudentClass" parameterType="java.util.Map">
+  	insert into class_student(student_id,class_id,pay_way,course_code,uid) values 
+  	(#{studentId,jdbcType=INTEGER},#{classId,jdbcType=INTEGER},#{payWay,jdbcType=INTEGER},#{courseCode,jdbcType=VARCHAR},#{uId,jdbcType=INTEGER})
+  </insert>
+  
+  <!--修改课程码使用状态-->
+  <update id="updateCourseCodeUseStatus" parameterType="java.util.Map">
+  	update class_code set is_used = 1 
+  		where class_id =#{classId,jdbcType=INTEGER} and code = #{courseCode,jdbcType=VARCHAR} and is_deleted = 0 limit 1
+  </update>
+  
+  <!--修改课程报名人数-->
+  <update id="saveClassEnrollment" parameterType="java.lang.Integer">
+  	update class set enrollment = (case when enrollment is null then 0 else enrollment end ) + 1 where id = #{classId,jdbcType=INTEGER} and is_deleted = 0
+  </update>
+  
+  <!--修改课程是否报满状态-->
+  <update id="updateFullStatus" parameterType="java.lang.Integer">
+  	update class set full_status = #{fullStatus,jdbcType=INTEGER} where id = #{classId,jdbcType=INTEGER} and is_deleted = 0
+  </update>
+  <!-- 删除课程中学生的作业以及状态 -->
+  <update id="deleteLessonHomeworkStudentByLessonHomeworkId">
+  	update lesson_homework_student set is_deleted = 1, delete_time = now() where lesson_homework_id = #{lessonHomeworkId,jdbcType=INTEGER}
+  </update>
+  <!-- 删除学生的题目 -->
+  <update id="deleteLessonHomeworkStudentProblemByLessonHomeworkStudentId">
+  	update lesson_homework_student_problem set is_deleted = 1, delete_time = now() where lesson_student_id = #{lessonHomeworkStudentId,jdbcType=INTEGER}
+  </update>
+  <!-- 删除课程使用的试卷 -->
+  <update id="deleteLessonPaperByLessonId">
+  	update lesson_paper set is_deleted = 1, delete_time = now() where lesson_id = #{lessonId,jdbcType=INTEGER}
+  </update>
+  <!-- 删除课程中保存的课堂截图 -->
+  <update id="deleteLessonPictureByLessonId">
+  	update lesson_picture set is_deleted = 1, delete_time = now() where lesson_id = #{lessonId,jdbcType=INTEGER}
+  </update>
+  <!-- 删除课程表扬记录 -->
+  <update id="deleteLessonPraiseByLessonId">
+  	update lesson_praise set is_deleted = 1, delete_time = now() where lesson_id = #{lessonId,jdbcType=INTEGER}
+  </update>
+  <!-- 删除课程中选择的作业绘本 -->
+  <update id="deleteLessonStoryBookByLessonId">
+  	update lesson_story_book set is_deleted = 1, delete_time = now() where lesson_id = #{lessonId,jdbcType=INTEGER}
+  </update>
+  <!-- 获取课程中选择的作业绘本id -->
+  <select id="getLessonStoryBookIdByLessonId" resultType="java.lang.Integer">
+  	select id from lesson_story_book where lesson_id = #{lessonId,jdbcType=INTEGER} and is_deleted = 0
+  </select>
+  <!-- 删除学生的课程中的故事绘本 -->
+  <update id="deleteLessonStoryBookStudentByLessonStoryBookId">
+  	update lesson_story_book_student set is_deleted = 1, delete_time = now() where lesson_book_id = #{lessonStoryBookId,jdbcType=INTEGER}
+  </update>
+  <!-- 获取学生的课程中的故事绘本id -->
+  <select id="getlessonStoryBookStudentIdByLessonStoryBookId" resultType="java.lang.Integer">
+  	select id from lesson_story_book_student where lesson_book_id = #{lessonStoryBookId,jdbcType=INTEGER} and is_deleted = 0
+  </select>
+  <!-- 删除课程中作业绘本的学生答案 -->
+  <update id="deleteLessonStoryBookStudentProblemByLessonStoryBookStudentId">
+  	update lesson_story_book_student_problem set is_deleted = 1, delete_time = now() where lesson_book_student_id = #{lessonStoryBookStudentId,jdbcType=INTEGER}
+  </update>
+  <!-- 获取学生的课程中的故事绘本id -->
+  <select id="getLessonStoryBookStudentProblemIdByLessonStoryBookStudentId" resultType="java.lang.Integer">
+  	select id from lesson_story_book_student_problem where lesson_book_student_id = #{lessonStoryBookStudentId,jdbcType=INTEGER} and is_deleted = 0
+  </select>
+  <!-- 删除课程中作业绘本的学生答案 -->
+  <update id="deleteLessonStoryBookStudentProblemAnswerByLessonStoryBookStudentProblemId">
+  	update lesson_story_book_student_problem_answer set is_deleted = 1, delete_time = now() where student_problem_id = #{lessonStoryBookStudentProblemId,jdbcType=INTEGER}
+  </update>
+   <!-- 删除班级的上课日期 -->
+  <update id="deleteClassDateBycid">
+  	update class_classdate set is_deleted = 1, delete_time = now() where class_id = #{cid,jdbcType=INTEGER}
+  </update>
+   <!-- 删除课程中的课程码 -->
+  <update id="deleteClassCodeBycid">
+  	update class_code set is_deleted = 1, delete_time = now() where class_id = #{cid,jdbcType=INTEGER}
+  </update>
+   <!-- 删除班级中的课程每节课 -->
+  <update id="deleteClassLessonBycid">
+  	update class_lesson set is_deleted = 1, delete_time = now() where class_id = #{cid,jdbcType=INTEGER}
+  </update>
+   <!-- 删除参加课程的学生 -->
+  <update id="deleteClassStudentBycid">
+  	update class_student set is_deleted = 1, delete_time = now() where class_id = #{cid,jdbcType=INTEGER}
+  </update>
+   <!-- 删除班级 -->
+  <update id="deleteClassBycid">
+  	update class set is_deleted = 1, delete_time = now() where id = #{cid,jdbcType=INTEGER}
+  </update>
+   <!-- 根据班级id获取课程码信息 -->
+   <select id="getClassCodeByClassId" resultType="java.util.Map">
+   	select id as codeId, code as codeName, is_used as isUsed  from class_code where class_id =  #{classId,jdbcType=INTEGER} and is_deleted = 0
+   </select>
+   
+   <!-- 获取小节课—班级的信息 -->
+   <select id="getInfoByLessonId" parameterType="java.lang.Integer" resultType="java.util.Map">
+	select cl.id lessonId,cl.`name` lessonName,c.id classId,c.`code` code from class_lesson cl 
+	INNER JOIN class c on(cl.class_id = c.id) where c.is_deleted = 0 and cl.is_deleted = 0 and cl.id = #{lessonId,jdbcType=INTEGER}		
+   </select>
+   
+   <select id="getClassInfo" resultType="java.util.Map">
+   	SELECT
+	c.id AS classId,
+	c. NAME AS className,
+
+	IF (
+		cu.attribute = 1,
+		'直播课',
+		'面授课'
+	) AS attributeName,
+	 cu.attribute AS attributeId,
+	 c.is_publish AS isPublish,
+	 c.subject_id AS subjectId,
+	 dos. NAME AS subjectName,
+	 c.lesson_total AS lessonTotal,
+		(
+			SELECT
+				COUNT(*)
+			FROM
+				class_lesson cl
+			WHERE
+				cl.class_id = c.id
+			AND cl.is_deleted = 0
+			AND cl. STATUS = 2
+		) AS currentLesson ,
+		(
+			SELECT
+				COUNT(*)
+			FROM
+				class_lesson cl
+			WHERE
+				cl.class_id = c.id
+			AND cl.is_deleted = 0
+		) AS lessonNum,
+		 (
+			SELECT
+				COUNT(*)
+			FROM
+				class_student cs
+			WHERE
+				cs.class_id = c.id
+			AND cs.is_deleted = 0
+	) AS numberOfEnrolment,
+	 c.teacher_id AS teacherId,
+	 t. NAME AS teacherName,
+	 c.introduction AS introduction,
+	 c.school_id AS schoolId,
+	 s. NAME AS schoolName,
+	 c.campus_id AS campusId,
+	 ca. NAME AS campusName,
+	 c.curriculum_id AS curriculumId,
+	 cu. NAME AS curriculumName,
+	 c.term_id AS termId,
+	 dot. NAME AS termName,
+	 c.time AS classtime,
+	 c.place AS classPlace,
+	 c.cover_url AS coverUrl,
+	 c.toplimit AS toplimit,
+	 c.grade_id AS gradeId,
+	 (
+		SELECT
+			ccd.classdate_id
+		FROM
+			class_classdate ccd
+		WHERE
+			ccd.class_id = c.id
+		AND ccd.is_deleted = 0
+		LIMIT 1
+	) AS classDateId,
+	 c.price AS price,
+	 c.pay_way AS payWay,
+	 (
+		SELECT
+			GROUP_CONCAT(ccode. CODE SEPARATOR ',')
+		FROM
+			class_code ccode
+		WHERE
+			ccode.class_id = c.id
+		AND ccode.is_deleted = 0
+		AND ccode.is_used = 0
+	) AS codes
+	FROM
+		class c
+	LEFT JOIN (
+		SELECT
+			*
+		FROM
+			curriculum cm
+		WHERE
+			cm.is_deleted = 0
+	) cu ON c.curriculum_id = cu.id
+	INNER JOIN dict_organization_subject dos ON c.subject_id = dos.id
+	INNER JOIN teacher t ON c.teacher_id = t.id
+	LEFT JOIN (
+		SELECT
+			*
+		FROM
+			school s2
+		WHERE
+			s2.is_deleted = 0
+	) s ON c.school_id = s.id
+	INNER JOIN campus ca ON c.campus_id = ca.id
+	LEFT JOIN (
+		SELECT
+			*
+		FROM
+			dict_organization_term dot2
+		WHERE
+			dot2.is_deleted = 0
+	) dot ON c.term_id = dot.id
+	WHERE
+		c.id = #{classId,jdbcType=INTEGER}
+	AND c.is_deleted = 0
+   </select>
+  <!-- 创建课程 -->
+  <insert id="creatCourse" parameterType="java.util.Map" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+  	insert into class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="organizationId != null" >
+        organization_id,
+      </if>
+      <if test="curriculumId != null" >
+        curriculum_id,
+      </if>
+        code,
+      <if test="className != null" >
+        name,
+      </if>
+      <if test="coverUrl != null" >
+        cover_url,
+      </if>
+      <if test="classPlace != null" >
+        place,
+      </if>
+      <if test="classdate != null" >
+        time,
+      </if>
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="gradeId != null" >
+        grade_id,
+      </if>
+      <if test="subjectId != null" >
+        subject_id,
+      </if>
+      <if test="termId != null" >
+        term_id,
+      </if>
+      <if test="schoolId != null" >
+        school_id,
+      </if>
+      <if test="campusId != null" >
+        campus_id,
+      </if>
+      <if test="toplimit != null" >
+        toplimit,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="payWay != null" >
+        pay_way,
+      </if>
+      <if test="lessonTotal != null" >
+        lesson_total,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="curriculumId != null" >
+        curriculum_system_id,
+      </if>
+     
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="organizationId != null" >
+        #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="curriculumId != null" >
+        #{curriculumId,jdbcType=INTEGER},
+      </if>
+      '0',
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="coverUrl != null" >
+        #{coverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="classPlace != null" >
+        #{classPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="classdate != null" >
+        #{classdate,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="gradeId != null" >
+        #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectId != null" >
+        #{subjectId,jdbcType=INTEGER},
+      </if>
+      <if test="termId != null" >
+        #{termId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="campusId != null" >
+        #{campusId,jdbcType=INTEGER},
+      </if>
+      <if test="toplimit != null" >
+        #{toplimit,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="payWay != null" >
+        #{payWay,jdbcType=VARCHAR},
+      </if>
+      <if test="lessonTotal != null" >
+        #{lessonTotal,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="curriculumId != null" >
+        (select curriculum_system_id from curriculum where id = #{curriculumId,jdbcType=INTEGER} and is_deleted = 0),
+      </if>
+    </trim>
+  </insert>
+  <!-- 级联更新code -->
+  <update id="updateCodeByid" parameterType="java.util.Map">
+  	update class set code = #{code,jdbcType=VARCHAR} where id = #{id,jdbcType=INTEGER} 
+  </update>
+  <!--  更新classdateid -->
+  <insert id="saveClassDateId">
+  	INSERT INTO class_classdate (class_id, classdate_id) VALUES (#{classId,jdbcType=INTEGER}, #{classDateId,jdbcType=INTEGER})
+  </insert>
+   <!-- 根据lessonid查询班级名称code -->
+   <select id="getClassNameByLessonId" parameterType="java.lang.Integer" resultType="java.util.Map">
+   SELECT 
+	b.id AS lessonId,
+	b.name AS lessonName,
+	a.id AS classId,
+	a.name AS className,
+	a.code AS code 
+	FROM class a 
+	INNER JOIN class_lesson b ON a.id = b.class_id 
+	WHERE b.id = #{lessonId,jdbcType=INTEGER} 
+	AND a.is_deleted = 0 
+	AND b.is_deleted = 0	
+   </select>
+   
+</mapper>

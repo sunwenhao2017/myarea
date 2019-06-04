@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+	  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+	  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- <classPathEntry location="WebRoot/WEB-INF/lib/sqljdbc.jar" /> -->
+	<!-- <classPathEntry location="src/main/webapp/WEB-INF/lib/sqlserver-jdbc-3.0.jar 
+		"/> -->
+
+	<context id="MysqlTables" targetRuntime="MyBatis3">
+		<!-- 这里引入mysql分页扩展插件 -->   
+    	<plugin type="util.MysqlPaginationPlugin" />
+    	
+    	<plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+    
+        <!-- 使用自定义实体注释的插件 -->
+        <commentGenerator type="util.MyCommentGenerator"/>
+ 
+		<!-- <commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>  -->
+		
+		<!-- Mysql数据库连接 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://172.17.16.26:13006/hdkt_org_v2?tinyInt1isBit=false&amp;useUnicode=true&amp;characterEncoding=UTF-8"
+			userId="root" password="zgnw0xNZa5pexxhk">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- java类 -->
+		<javaModelGenerator targetPackage="com.qtone.hdkt.model.course"
+			targetProject="src">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- xml生成的位置 -->
+		<sqlMapGenerator targetPackage="com.qtone.hdkt.dao.course"
+			targetProject="src">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		
+		<!-- java mapper类 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.qtone.hdkt.dao.course" targetProject="src">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+ 
+		<!-- <table tableName="inter" domainObjectName="Inter"
+			enableCountByExample="true" enableDeleteByExample="true"
+			enableSelectByExample="true" enableUpdateByExample="true">
+		</table> 
+		<table tableName="module" domainObjectName="Module"
+			enableCountByExample="true" enableDeleteByExample="true"
+			enableSelectByExample="true" enableUpdateByExample="true">
+		</table> 
+		<table tableName="project" domainObjectName="Project"
+			enableCountByExample="true" enableDeleteByExample="true"
+			enableSelectByExample="true" enableUpdateByExample="true">
+		</table> 
+		<table tableName="user" domainObjectName="User"
+			enableCountByExample="true" enableDeleteByExample="true"
+			enableSelectByExample="true" enableUpdateByExample="true">
+		</table>
+		
+		<table tableName="teacher_campus" domainObjectName="TeacherCampus"
+			enableCountByExample="true" enableDeleteByExample="true"
+			enableSelectByExample="true" enableUpdateByExample="true">
+		</table> -->
+		
+		<!-- <table tableName="classroom" domainObjectName="Classroom"
+			enableCountByExample="true" enableDeleteByExample="true"
+			enableSelectByExample="true" enableUpdateByExample="true">
+		</table> -->
+		<table tableName="curriculum_lesson" domainObjectName="CurriculumLesson"
+			enableCountByExample="true" enableDeleteByExample="true"
+			enableSelectByExample="true" enableUpdateByExample="true">
+		</table>
+		
+		
+		
+	</context>
+</generatorConfiguration>
+

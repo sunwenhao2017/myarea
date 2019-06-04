@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qtone.hdkt.dao.homework.LessonHomeworkStudentProblemMapper" >
+  <resultMap id="BaseResultMap" type="com.qtone.hdkt.model.homework.LessonHomeworkStudentProblem" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="lesson_student_id" property="lessonStudentId" jdbcType="INTEGER" />
+    <result column="problem_id" property="problemId" jdbcType="INTEGER" />
+    <result column="problem_type" property="problemType" jdbcType="INTEGER" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+    <result column="source_type" property="sourceType" jdbcType="INTEGER" />
+    <result column="is_correct" property="isCorrect" jdbcType="INTEGER" />
+    <result column="answerType" property="answertype" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+    <result column="determine_score" property="determineScore" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.qtone.hdkt.model.homework.LessonHomeworkStudentProblem" extends="BaseResultMap" >
+    <result column="answer" property="answer" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, lesson_student_id, problem_id, problem_type, source, source_type, is_correct, 
+    answerType, remark, score, determine_score, create_time, update_time, delete_time, 
+    is_deleted
+  </sql>
+  <sql id="Blob_Column_List" >
+    answer
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.qtone.hdkt.model.homework.LessonHomeworkStudentProblemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from lesson_homework_student_problem
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qtone.hdkt.model.homework.LessonHomeworkStudentProblemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from lesson_homework_student_problem
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0 and limitEnd != null and limitEnd>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from lesson_homework_student_problem
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lesson_homework_student_problem
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qtone.hdkt.model.homework.LessonHomeworkStudentProblemExample" >
+    delete from lesson_homework_student_problem
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qtone.hdkt.model.homework.LessonHomeworkStudentProblem" >
+    insert into lesson_homework_student_problem (id, lesson_student_id, problem_id, 
+      problem_type, source, source_type, 
+      is_correct, answerType, remark, 
+      score, determine_score, create_time, 
+      update_time, delete_time, is_deleted, 
+      answer)
+    values (#{id,jdbcType=INTEGER}, #{lessonStudentId,jdbcType=INTEGER}, #{problemId,jdbcType=INTEGER}, 
+      #{problemType,jdbcType=INTEGER}, #{source,jdbcType=INTEGER}, #{sourceType,jdbcType=INTEGER}, 
+      #{isCorrect,jdbcType=INTEGER}, #{answertype,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{score,jdbcType=INTEGER}, #{determineScore,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleteTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=INTEGER}, 
+      #{answer,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qtone.hdkt.model.homework.LessonHomeworkStudentProblem" >
+    insert into lesson_homework_student_problem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="lessonStudentId != null" >
+        lesson_student_id,
+      </if>
+      <if test="problemId != null" >
+        problem_id,
+      </if>
+      <if test="problemType != null" >
+        problem_type,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="sourceType != null" >
+        source_type,
+      </if>
+      <if test="isCorrect != null" >
+        is_correct,
+      </if>
+      <if test="answertype != null" >
+        answerType,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="determineScore != null" >
+        determine_score,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="deleteTime != null" >
+        delete_time,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="lessonStudentId != null" >
+        #{lessonStudentId,jdbcType=INTEGER},
+      </if>
+      <if test="problemId != null" >
+        #{problemId,jdbcType=INTEGER},
+      </if>
+      <if test="problemType != null" >
+        #{problemType,jdbcType=INTEGER},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="sourceType != null" >
+        #{sourceType,jdbcType=INTEGER},
+      </if>
+      <if test="isCorrect != null" >
+        #{isCorrect,jdbcType=INTEGER},
+      </if>
+      <if test="answertype != null" >
+        #{answertype,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="determineScore != null" >
+        #{determineScore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteTime != null" >
+        #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qtone.hdkt.model.homework.LessonHomeworkStudentProblemExample" resultType="java.lang.Integer" >
+    select count(*) from lesson_homework_student_problem
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lesson_homework_student_problem
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.lessonStudentId != null" >
+        lesson_student_id = #{record.lessonStudentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.problemId != null" >
+        problem_id = #{record.problemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.problemType != null" >
+        problem_type = #{record.problemType,jdbcType=INTEGER},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=INTEGER},
+      </if>
+      <if test="record.sourceType != null" >
+        source_type = #{record.sourceType,jdbcType=INTEGER},
+      </if>
+      <if test="record.isCorrect != null" >
+        is_correct = #{record.isCorrect,jdbcType=INTEGER},
+      </if>
+      <if test="record.answertype != null" >
+        answerType = #{record.answertype,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.determineScore != null" >
+        determine_score = #{record.determineScore,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleteTime != null" >
+        delete_time = #{record.deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDeleted != null" >
+        is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.answer != null" >
+        answer = #{record.answer,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update lesson_homework_student_problem
+    set id = #{record.id,jdbcType=INTEGER},
+      lesson_student_id = #{record.lessonStudentId,jdbcType=INTEGER},
+      problem_id = #{record.problemId,jdbcType=INTEGER},
+      problem_type = #{record.problemType,jdbcType=INTEGER},
+      source = #{record.source,jdbcType=INTEGER},
+      source_type = #{record.sourceType,jdbcType=INTEGER},
+      is_correct = #{record.isCorrect,jdbcType=INTEGER},
+      answerType = #{record.answertype,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=INTEGER},
+      determine_score = #{record.determineScore,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      delete_time = #{record.deleteTime,jdbcType=TIMESTAMP},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      answer = #{record.answer,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lesson_homework_student_problem
+    set id = #{record.id,jdbcType=INTEGER},
+      lesson_student_id = #{record.lessonStudentId,jdbcType=INTEGER},
+      problem_id = #{record.problemId,jdbcType=INTEGER},
+      problem_type = #{record.problemType,jdbcType=INTEGER},
+      source = #{record.source,jdbcType=INTEGER},
+      source_type = #{record.sourceType,jdbcType=INTEGER},
+      is_correct = #{record.isCorrect,jdbcType=INTEGER},
+      answerType = #{record.answertype,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=INTEGER},
+      determine_score = #{record.determineScore,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      delete_time = #{record.deleteTime,jdbcType=TIMESTAMP},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qtone.hdkt.model.homework.LessonHomeworkStudentProblem" >
+    update lesson_homework_student_problem
+    <set >
+      <if test="lessonStudentId != null" >
+        lesson_student_id = #{lessonStudentId,jdbcType=INTEGER},
+      </if>
+      <if test="problemId != null" >
+        problem_id = #{problemId,jdbcType=INTEGER},
+      </if>
+      <if test="problemType != null" >
+        problem_type = #{problemType,jdbcType=INTEGER},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="sourceType != null" >
+        source_type = #{sourceType,jdbcType=INTEGER},
+      </if>
+      <if test="isCorrect != null" >
+        is_correct = #{isCorrect,jdbcType=INTEGER},
+      </if>
+      <if test="answertype != null" >
+        answerType = #{answertype,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="determineScore != null" >
+        determine_score = #{determineScore,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteTime != null" >
+        delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qtone.hdkt.model.homework.LessonHomeworkStudentProblem" >
+    update lesson_homework_student_problem
+    set lesson_student_id = #{lessonStudentId,jdbcType=INTEGER},
+      problem_id = #{problemId,jdbcType=INTEGER},
+      problem_type = #{problemType,jdbcType=INTEGER},
+      source = #{source,jdbcType=INTEGER},
+      source_type = #{sourceType,jdbcType=INTEGER},
+      is_correct = #{isCorrect,jdbcType=INTEGER},
+      answerType = #{answertype,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      determine_score = #{determineScore,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+      answer = #{answer,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qtone.hdkt.model.homework.LessonHomeworkStudentProblem" >
+    update lesson_homework_student_problem
+    set lesson_student_id = #{lessonStudentId,jdbcType=INTEGER},
+      problem_id = #{problemId,jdbcType=INTEGER},
+      problem_type = #{problemType,jdbcType=INTEGER},
+      source = #{source,jdbcType=INTEGER},
+      source_type = #{sourceType,jdbcType=INTEGER},
+      is_correct = #{isCorrect,jdbcType=INTEGER},
+      answerType = #{answertype,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      determine_score = #{determineScore,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

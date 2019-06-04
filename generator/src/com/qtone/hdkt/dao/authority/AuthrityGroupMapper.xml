@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qtone.hdkt.dao.authority.AuthrityGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.qtone.hdkt.model.authority.AuthrityGroup" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="group_code" property="groupCode" jdbcType="VARCHAR" />
+    <result column="group_name" property="groupName" jdbcType="VARCHAR" />
+    <result column="organization_id" property="organizationId" jdbcType="INTEGER" />
+    <result column="school_id" property="schoolId" jdbcType="INTEGER" />
+    <result column="school_type" property="schoolType" jdbcType="INTEGER" />
+    <result column="group_type" property="groupType" jdbcType="INTEGER" />
+    <result column="is_system" property="isSystem" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="is_last" property="isLast" jdbcType="INTEGER" />
+    <result column="is_view" property="isView" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="authority_desc" property="authorityDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, group_code, group_name, organization_id, school_id, school_type, group_type, 
+    is_system, parent_id, level, is_last, is_view, create_time, update_time, delete_time, 
+    is_deleted, authority_desc
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qtone.hdkt.model.authority.AuthrityGroupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from authority_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0 and limitEnd != null and limitEnd>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from authority_group
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from authority_group
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qtone.hdkt.model.authority.AuthrityGroupExample" >
+    delete from authority_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qtone.hdkt.model.authority.AuthrityGroup" >
+    insert into authority_group (id, group_code, group_name, 
+      organization_id, school_id, school_type, 
+      group_type, is_system, parent_id, 
+      level, is_last, is_view, 
+      create_time, update_time, delete_time, 
+      is_deleted, authority_desc)
+    values (#{id,jdbcType=INTEGER}, #{groupCode,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR}, 
+      #{organizationId,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER}, #{schoolType,jdbcType=INTEGER}, 
+      #{groupType,jdbcType=INTEGER}, #{isSystem,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{isLast,jdbcType=INTEGER}, #{isView,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleteTime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=INTEGER}, #{authorityDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qtone.hdkt.model.authority.AuthrityGroup" >
+    insert into authority_group
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="groupCode != null" >
+        group_code,
+      </if>
+      <if test="groupName != null" >
+        group_name,
+      </if>
+      <if test="organizationId != null" >
+        organization_id,
+      </if>
+      <if test="schoolId != null" >
+        school_id,
+      </if>
+      <if test="schoolType != null" >
+        school_type,
+      </if>
+      <if test="groupType != null" >
+        group_type,
+      </if>
+      <if test="isSystem != null" >
+        is_system,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="isLast != null" >
+        is_last,
+      </if>
+      <if test="isView != null" >
+        is_view,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="deleteTime != null" >
+        delete_time,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="authorityDesc != null" >
+        authority_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="groupCode != null" >
+        #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null" >
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null" >
+        #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolType != null" >
+        #{schoolType,jdbcType=INTEGER},
+      </if>
+      <if test="groupType != null" >
+        #{groupType,jdbcType=INTEGER},
+      </if>
+      <if test="isSystem != null" >
+        #{isSystem,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="isLast != null" >
+        #{isLast,jdbcType=INTEGER},
+      </if>
+      <if test="isView != null" >
+        #{isView,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteTime != null" >
+        #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="authorityDesc != null" >
+        #{authorityDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qtone.hdkt.model.authority.AuthrityGroupExample" resultType="java.lang.Integer" >
+    select count(*) from authority_group
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update authority_group
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.groupCode != null" >
+        group_code = #{record.groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupName != null" >
+        group_name = #{record.groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.organizationId != null" >
+        organization_id = #{record.organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.schoolId != null" >
+        school_id = #{record.schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="record.schoolType != null" >
+        school_type = #{record.schoolType,jdbcType=INTEGER},
+      </if>
+      <if test="record.groupType != null" >
+        group_type = #{record.groupType,jdbcType=INTEGER},
+      </if>
+      <if test="record.isSystem != null" >
+        is_system = #{record.isSystem,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.isLast != null" >
+        is_last = #{record.isLast,jdbcType=INTEGER},
+      </if>
+      <if test="record.isView != null" >
+        is_view = #{record.isView,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deleteTime != null" >
+        delete_time = #{record.deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isDeleted != null" >
+        is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.authorityDesc != null" >
+        authority_desc = #{record.authorityDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update authority_group
+    set id = #{record.id,jdbcType=INTEGER},
+      group_code = #{record.groupCode,jdbcType=VARCHAR},
+      group_name = #{record.groupName,jdbcType=VARCHAR},
+      organization_id = #{record.organizationId,jdbcType=INTEGER},
+      school_id = #{record.schoolId,jdbcType=INTEGER},
+      school_type = #{record.schoolType,jdbcType=INTEGER},
+      group_type = #{record.groupType,jdbcType=INTEGER},
+      is_system = #{record.isSystem,jdbcType=INTEGER},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      is_last = #{record.isLast,jdbcType=INTEGER},
+      is_view = #{record.isView,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      delete_time = #{record.deleteTime,jdbcType=TIMESTAMP},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      authority_desc = #{record.authorityDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qtone.hdkt.model.authority.AuthrityGroup" >
+    update authority_group
+    <set >
+      <if test="groupCode != null" >
+        group_code = #{groupCode,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null" >
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null" >
+        organization_id = #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        school_id = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolType != null" >
+        school_type = #{schoolType,jdbcType=INTEGER},
+      </if>
+      <if test="groupType != null" >
+        group_type = #{groupType,jdbcType=INTEGER},
+      </if>
+      <if test="isSystem != null" >
+        is_system = #{isSystem,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="isLast != null" >
+        is_last = #{isLast,jdbcType=INTEGER},
+      </if>
+      <if test="isView != null" >
+        is_view = #{isView,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteTime != null" >
+        delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="authorityDesc != null" >
+        authority_desc = #{authorityDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qtone.hdkt.model.authority.AuthrityGroup" >
+    update authority_group
+    set group_code = #{groupCode,jdbcType=VARCHAR},
+      group_name = #{groupName,jdbcType=VARCHAR},
+      organization_id = #{organizationId,jdbcType=INTEGER},
+      school_id = #{schoolId,jdbcType=INTEGER},
+      school_type = #{schoolType,jdbcType=INTEGER},
+      group_type = #{groupType,jdbcType=INTEGER},
+      is_system = #{isSystem,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      is_last = #{isLast,jdbcType=INTEGER},
+      is_view = #{isView,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+      authority_desc = #{authorityDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

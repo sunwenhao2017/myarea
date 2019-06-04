@@ -1,0 +1,22 @@
+########使用说明########
+
+<!-- java类 -->
+<javaModelGenerator targetPackage="com.qtone.hdkt.model.authority"
+	targetProject="src">
+	<property name="enableSubPackages" value="true" />
+	<property name="trimStrings" value="true" />
+</javaModelGenerator>
+
+<!-- xml生成的位置 -->
+<sqlMapGenerator targetPackage="com.qtone.hdkt.dao.authority"
+	targetProject="src">
+	<property name="enableSubPackages" value="true" />
+</sqlMapGenerator>
+
+<!-- java mapper类 -->
+<javaClientGenerator type="XMLMAPPER"
+	targetPackage="com.qtone.hdkt.dao.authority" targetProject="src">
+	<property name="enableSubPackages" value="true" />
+</javaClientGenerator>
+
+authority是提前在dao和model目录手动写好

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+	  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+	  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- <classPathEntry location="WebRoot/WEB-INF/lib/sqljdbc.jar" /> -->
+	<!-- <classPathEntry location="src/main/webapp/WEB-INF/lib/sqlserver-jdbc-3.0.jar 
+		"/> -->
+
+	<context id="MysqlTables" targetRuntime="MyBatis3">
+		<!-- 这里引入mysql分页扩展插件 -->   
+    	<plugin type="util.OraclePaginationPlugin" /> 
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+	<!--	<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://192.168.0.37/accountcenter?useUnicode=true&amp;characterEncoding=UTF-8"
+			userId="root" password="111111">
+		</jdbcConnection>-->
+		
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@192.168.0.214:1521:orcl"
+			userId="npaydb" password="npaydb">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- java类 -->
+		<javaModelGenerator targetPackage="main.java.com.yufusoft.bill.model"
+			targetProject="src">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- xml生成的位置 -->
+		
+		<sqlMapGenerator targetPackage="main.resources.mappers"
+			targetProject="src">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<!-- java mapper类 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="main.java.com.yufusoft.bill.model.mapper" targetProject="src">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+ 
+		<table tableName="TC_ORDER_INFO" domainObjectName="OrderInfo"
+			enableCountByExample="true" enableDeleteByExample="true"
+			enableSelectByExample="true" enableUpdateByExample="true">
+		</table> 
+ 
+ 
+				
+	</context>
+</generatorConfiguration>
+
