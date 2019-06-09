@@ -1,0 +1,138 @@
+spring:
+    profiles.active: dev
+
+################################  
+# dev profile section  #
+################################
+
+---
+spring:
+  profiles: dev
+  application:
+    name: pbplatform-code-gen
+server:
+  port: 8999
+  
+pb: 
+  modelbuilders:
+    - 
+      name: mysql
+      type: mysql
+      configPath: modelBuilders/mysql.json
+  templates: 
+    - 
+      name: beanClass
+      modelBuilderName: mysql
+      templateFilename: entityClass.ftl
+      outputPath: ${pb.saveDir}:/${pb.projectName}/src/main/java/com/powerbridge/${pb.artifactId}/entity
+      outputFilenameRule: ${upperCaseName}.java
+      options: 
+        pons: com.powerbridge.${pb.artifactId}.entity
+    - 
+      name: mapperClass
+      modelBuilderName: mysql
+      templateFilename: mapperClass.ftl
+      outputPath: ${pb.saveDir}:/${pb.projectName}/src/main/java/com/powerbridge/${pb.artifactId}/dao
+      outputFilenameRule: ${upperCaseName}Mapper.java
+      options: 
+        pons: com.powerbridge.${pb.artifactId}.entity
+        mpns: com.powerbridge.${pb.artifactId}.dao
+    - 
+      name: mapperXml
+      modelBuilderName: mysql
+      templateFilename: mapperXml.ftl
+      outputPath: ${pb.saveDir}:/${pb.projectName}/src/main/resources/mapper
+      outputFilenameRule: ${upperCaseName}Mapper.xml
+      options: 
+        pons: com.powerbridge.${pb.artifactId}.entity
+        mapperns: com.powerbridge.${pb.artifactId}.dao
+    - 
+      name: serviceInterface
+      modelBuilderName: mysql
+      templateFilename: serviceInterface.ftl
+      outputPath: ${pb.saveDir}:/${pb.projectName}/src/main/java/com/powerbridge/${pb.artifactId}/service
+      outputFilenameRule: I${upperCaseName}Service.java
+      options: 
+        pons: com.powerbridge.${pb.artifactId}.entity
+        itns: com.powerbridge.${pb.artifactId}.service
+    - 
+      name: serviceImpl
+      modelBuilderName: mysql
+      templateFilename: serviceImpl.ftl
+      outputPath: ${pb.saveDir}:/${pb.projectName}/src/main/java/com/powerbridge/${pb.artifactId}/service/impl
+      outputFilenameRule: ${upperCaseName}ServiceImpl.java
+      options: 
+        pons: com.powerbridge.${pb.artifactId}.entity
+        itns: com.powerbridge.${pb.artifactId}.service
+        mpns: com.powerbridge.${pb.artifactId}.dao
+        imns: com.powerbridge.${pb.artifactId}.service.impl
+    - 
+      name: controller
+      modelBuilderName: mysql
+      templateFilename: controller.ftl
+      outputPath: ${pb.saveDir}:/${pb.projectName}/src/main/java/com/powerbridge/${pb.artifactId}/controller
+      outputFilenameRule: ${upperCaseName}Controller.java
+      options: 
+        pons: com.powerbridge.${pb.artifactId}.entity
+        conns: com.powerbridge.${pb.artifactId}.controller
+        itns: com.powerbridge.${pb.artifactId}.service
+        mpns: com.powerbridge.${pb.artifactId}.dao
+        imns: com.powerbridge.${pb.artifactId}.service.impl
+
+  ## 脚手架项目保存在本地的文件名
+  exampleFileName: springcloud-admin
+  ## 用于修改.project/name, app.properties/app.id的项目名
+  exampleProjectName: admin
+
+  ## 脚手架项目的ftp路径
+  exampleFtpPath: https://github.com/sunwenhao2017/myarea/raw/master/soft/rBAALVuGMlWAMVy1AAEfpq5L-EY0375.gz
+  saveDir: D
+  exampleSaveName: ${pb.exampleFileName}.tar.gz
+  ## 用于修改Apllo配置
+  exampleApllo: springcloud-admin-v1.0
+  examplePubApllo: DEPT.testpublic
+
+  ## 用于修改包结构
+  exampleStructure: com.powerbridge.ahowe
+  outputStructure: com.powerbridge.${pb.artifactId}
+
+  ##以下参数需手动修改
+  ## 新项目名
+  projectName: springcloud-admin
+  ## 新项目工程包名
+  artifactId: admin
+  ## 新项目包结构下属模块名(目前只支持一个模块)
+  modelName: admin
+  ## 新项目Apllo配置
+  aplloAppId: springcloud-admin
+  ## 该项目以来的公共Apollo配置
+  apllopubAppId: DEPT.testpublic
+  ## 是否生成项目结构 true:生成初始工程（含结构）, false:只生成表模型对应的代码
+  buildStructure: true
+
+logback:
+  appname: pbplatform-code-gen
+###############################
+# QA profile section  #
+###############################
+
+---
+spring:
+    profiles: qa
+
+###############################     
+# prod profile section  #
+###############################
+
+---
+spring:
+    profiles: prod
+    
+
+###########################
+# default profile section #
+###########################
+---        
+logging:
+    level:
+        com.pbplatform.admin: DEBUG
