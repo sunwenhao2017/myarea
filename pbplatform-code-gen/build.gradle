@@ -1,0 +1,139 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.3.RELEASE'
+    }
+
+    repositories {
+        maven {
+            url "${nexusPublicUrl}"
+        }
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+description = "${description}"
+
+allprojects {
+    group = "${groupId}"
+    version = project.properties.containsKey("releaseVersion") ? "${releaseVersion}" : "1.0-SNAPSHOT"
+
+    apply plugin: 'idea'
+
+    repositories {
+        maven {
+            url "${nexusPublicUrl}"
+        }
+    }
+
+    task wrapper(type: Wrapper) {
+        gradleVersion = '4.6'
+    }
+    
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+	apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+    //支持外置tomcat部署服务
+    //apply plugin: 'war'
+
+    ext {
+        archivesBaseName = "${rootProject.name}"
+        nexusRepoUrl = project.properties.containsKey("releaseVersion") ? "${nexusReleaseUrl}" : "${nexusSnapshotUrl}"
+    }
+	
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    bootRun {
+    	sourceResources sourceSets.main
+        if ( project.hasProperty('jvmArgs') ) {
+            jvmArgs project.jvmArgs.split('\\s+')
+        }
+    }
+
+    repositories {
+        maven {
+            url "${nexusPublicUrl}"
+        }
+    }
+    
+    dependencyManagement {
+		imports {
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:Finchley.RELEASE"
+			mavenBom "de.codecentric:spring-boot-admin-starter-server:2.0.1"
+		}
+	}
+
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter-web'){
+        	exclude module: 'spring-boot-starter-tomcat'
+            exclude group: 'org.apache.tomcat.embed'
+        }
+        compile('org.springframework.boot:spring-boot-starter-actuator')
+        compile('org.springframework.boot:spring-boot-starter-security')
+        compile('org.springframework.boot:spring-boot-starter-data-jpa')
+        compile('io.springfox:springfox-swagger2:2.8.0',
+        		'io.springfox:springfox-swagger-ui:2.8.0')
+        compile('net.logstash.logback:logstash-logback-encoder:4.9')
+        compile('org.apache.commons:commons-pool2')
+        compile('com.github.tobato:fastdfs-client:1.26.2')
+        compile('com.microsoft.sqlserver:sqljdbc4:4.0')
+        compile('com.baomidou:mybatisplus-spring-boot-starter:1.0.5')
+        compile('org.projectlombok:lombok')
+        compile('com.oracle:ojdbc6:11.2.0.1.0')
+        compile('org.freemarker:freemarker')
+        compile('com.powerbridge.core:pbplatform-core:1.0-20180719.051929-7')
+        compile('com.github.ulisesbocchio:jasypt-spring-boot-starter:2.0.0')
+        compile('org.springframework.cloud:spring-cloud-starter-stream-rabbit')
+        compile('mysql:mysql-connector-java')
+        compile('org.apache.commons:commons-compress:1.18')
+        runtime('org.springframework.boot:spring-boot-devtools')
+        testCompile('org.springframework.boot:spring-boot-starter-test')
+        //支持外置tomcat部署服务
+        //providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    }
+
+    eclipse {
+        project {
+            name = "${rootProject.name}"
+        }
+    }
+
+	apply plugin: 'maven-publish'
+    task buildDeploy(type: Copy, dependsOn: assemble) {
+	    def buildDeployDir = file("build/deploy/")
+	
+	
+	    from jar
+	    from "src/main/deploy"
+	    rename "app.conf", "${project.archivesBaseName}.conf"
+	    into buildDeployDir
+	}
+	
+	publishing {
+        publications {
+            bootJava(MavenPublication) {
+                groupId "${project.group}"
+                artifactId "${archivesBaseName}"
+                artifact bootJar
+            }
+        }
+        repositories {
+            maven {
+                credentials {
+                    username "${nexusUsername}"
+                    password "${nexusPassword}"
+                }
+                url "${nexusRepoUrl}"
+            }
+        }
+    }
+
+    publish {
+        dependsOn assemble
+    }
+}
