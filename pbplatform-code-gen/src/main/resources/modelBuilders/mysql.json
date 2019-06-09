@@ -1,7 +1,0 @@
-{
-  "dbUrl": "jdbc:mysql://localhost:13016/dev_dbflow?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false",
-  "driverClassName": "com.mysql.jdbc.Driver",
-  "username": "root",
-  "password": "mysql",
-  "tables": "sys_user"
-}
