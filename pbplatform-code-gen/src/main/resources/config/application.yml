@@ -80,33 +80,33 @@ pb:
         imns: com.powerbridge.${pb.artifactId}.service.impl
 
   ## 脚手架项目保存在本地的文件名
-  exampleFileName: pbplatform-example-master
+  exampleFileName: saas
   ## 用于修改.project/name, app.properties/app.id的项目名
-  exampleProjectName: pbplatform-example
+  exampleProjectName: saas
 
   ## 脚手架项目的ftp路径
-  exampleFtpPath: http://172.16.0.45:8088/group1/M00/00/03/rBAALVuGMlWAMVy1AAEfpq5L-EY0375.gz
-  saveDir: D
+  exampleFtpPath: https://github.com/sunwenhao2017/myarea/raw/master/soft/rBAALVuGMlWAMVy1AAEfpq5L-EY0375.gz
+  saveDir: F
   exampleSaveName: ${pb.exampleFileName}.tar.gz
   ## 用于修改Apllo配置
-  exampleApllo: pbplatform-exampleV1.5
-  examplePubApllo: DEPT.testpublic
+  exampleApllo: saas
+  examplePubApllo: TEST1.DEPT.PUBLIC
 
   ## 用于修改包结构
-  exampleStructure: com.powerbridge.example
+  exampleStructure: com.powerbridge.saas
   outputStructure: com.powerbridge.${pb.artifactId}
 
   ##以下参数需手动修改
   ## 新项目名
-  projectName: bls-grt
+  projectName: saas
   ## 新项目工程包名
-  artifactId: bls
+  artifactId: saas
   ## 新项目包结构下属模块名(目前只支持一个模块)
-  modelName: grt
+  modelName: saas
   ## 新项目Apllo配置
-  aplloAppId: pbplatform-exampleV1.5
+  aplloAppId: saas
   ## 该项目以来的公共Apollo配置
-  apllopubAppId: DEPT.testpublic
+  apllopubAppId: TEST1.DEPT.PUBLIC
   ## 是否生成项目结构 true:生成初始工程（含结构）, false:只生成表模型对应的代码
   buildStructure: true
 

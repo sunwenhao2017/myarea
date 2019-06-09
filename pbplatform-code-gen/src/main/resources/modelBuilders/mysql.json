@@ -1,7 +1,7 @@
 {
-  "dbUrl": "jdbc:mysql://172.16.0.168:3306/bssp_grt?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false",
+  "dbUrl": "jdbc:mysql://localhost:13016/dev_dbflow?characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false",
   "driverClassName": "com.mysql.jdbc.Driver",
-  "username": "devl",
-  "password": "qwe456",
+  "username": "root",
+  "password": "mysql",
   "tables": ""
 }
